@@ -40,9 +40,27 @@ function createListMarkup(arr) {
 galleryList.insertAdjacentHTML("beforeend", createListMarkup(galleryItems));
 
 function createModal({ original, description }) {
-  const instance = basicLightbox.create(`
+  const galleryImgZoom = basicLightbox.create(`
     <img src="${original}" alt="${description}">
-`);
+  `);
+  galleryImgZoom.show();
 
-  instance.show();
+  document.addEventListener("keydown", onEscapeClick);
+
+  function onEscapeClick(evt) {
+    closeModal(evt);
+  }
+
+  function closeModal(evt) {
+    if (evt.key === "Escape") {
+      galleryImgZoom.close();
+      document.removeEventListener("keydown", onEscapeClick); //
+    }
+  }
+  galleryImgZoom.element().addEventListener("click", removeEvtListener);
+
+  function removeEvtListener() {
+    galleryImgZoom.close();
+    document.removeEventListener("keydown", onEscapeClick);
+  }
 }

@@ -1,6 +1,7 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 const galleryList = document.querySelector(".gallery");
+
 function createListMarkup(arr) {
   return arr
     .map(
@@ -17,4 +18,8 @@ function createListMarkup(arr) {
 
 galleryList.insertAdjacentHTML("afterbegin", createListMarkup(galleryItems));
 
-console.log(SimpleLightbox);
+const galleryImgZoom = new SimpleLightbox(".gallery a", {
+  captionType: "attr",
+  captionsData: "alt",
+  captionDelay: 250,
+});
